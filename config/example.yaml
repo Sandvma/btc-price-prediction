@@ -1,0 +1,43 @@
+dataset:
+  path: btc_price_prediction/data/BTC-USD.csv
+  symbol: btc
+  tf: d1
+features:
+  list:
+    - ret
+    - ret_lag_1
+    - atr_14
+    - rsi_14
+    - mom_10
+    - kama_10
+    - vol_usd
+    - spread
+    - stochrsi_14
+  params:
+    ret:
+      log: true
+    atr:
+      n: 14
+    rsi:
+      n: 14
+    mom:
+      n: 10
+    kama:
+      n: 10
+    stochrsi:
+      n: 14
+labeling:
+  horizon_bars: 5
+  tp: 0.02
+  sl: 0.02
+validation:
+  blocks: 6
+  embargo_pct: 0.01
+regime:
+  hmm_states: 3
+risk:
+  target_vol: 0.1
+  kelly_alpha: 0.0
+backtest:
+  transaction_cost: 0.0005
+  slippage: 0.0002
