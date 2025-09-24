@@ -1,0 +1,4 @@
+Modelo segmentado con umbral 0.05
+Número de segmentos: 369
+Precisión: 0.5676
+Sharpe: -0.8408
