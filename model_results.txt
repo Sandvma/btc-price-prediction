@@ -1,0 +1,16 @@
+Resultados de modelos de regresión
+=================================
+Modelo	MSE	Precisión direccional
+Linear	0.00096812	0.4891
+RandomForest	0.00102127	0.4595
+ExtraTrees	0.00102514	0.4657
+GradientBoosting	0.00097520	0.4611
+SVR	0.00132964	0.5031
+KNN	0.00115019	0.4907
+
+Resultados de modelos de clasificación
+=====================================
+Modelo	Precisión
+LogisticRegression	0.4720
+RandomForestClassifier	0.4907
+SVC	0.4891
