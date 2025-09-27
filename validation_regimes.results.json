@@ -1,0 +1,9 @@
+{
+  "global_accuracy": 0.5101742813391454,
+  "regime_accuracy": 0.5085057459744735,
+  "global_sharpe": 0.6727796344481827,
+  "regime_sharpe": 0.6297729338210407,
+  "global_deflated_sharpe": 0.5391490134919705,
+  "regime_deflated_sharpe": 0.4961423128648285,
+  "pbo": 0.0
+}
