@@ -1,0 +1,7 @@
+{
+  "base_accuracy_mean": 0.46524390243902436,
+  "meta_accuracy_mean": 1.0,
+  "sharpe_mean": 0.7258472219483176,
+  "deflated_sharpe_mean": 0.6706314589108942,
+  "pbo": 0.4
+}
