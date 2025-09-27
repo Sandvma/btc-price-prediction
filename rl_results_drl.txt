@@ -1,0 +1,5 @@
+RL Q-learning (estado= sign(ret) x (MA3<MA7), acciones=hold/buy/sell)
+Episodios: 50, epsilon: 0.1, alpha: 0.2, gamma: 0.95
+Retorno acumulado: 2.5479
+Sharpe anualizado: 0.2335
+Política (estado→acción): [0, 0, 1, 0]
