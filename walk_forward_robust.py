@@ -188,8 +188,22 @@ def compute_features(df: pd.DataFrame, d: float | None) -> pd.DataFrame:
 @dataclass
 class WalkForwardConfig:
     """Configuration for walk‑forward experiment."""
-    n_splits: int = 5
-    d_values: tuple[float | None, ...] = (None, 0.3, 0.4, 0.5, 0.6)
+    # Use 3 splits to accommodate cases with few samples (e.g., higher d values reduce data).
+    n_splits: int = 3
+    # Try a grid of differentiation orders.  None corresponds to no FFD.
+    #
+    # Note: fractional differencing with very small d (e.g., 0.1 or 0.2) can
+    # produce so many NaNs that no labelled samples remain after the triple
+    # barrier filter, causing cross‑validation to fail.  We therefore omit
+    # values that typically yield an empty dataset (e.g., 0.2).
+    d_values: tuple[float | None, ...] = (
+        None,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+    )
     horizon: int = 10
     k_tp: float = 1.0
     k_sl: float = 1.0
@@ -215,6 +229,16 @@ def run_experiment(cfg: WalkForwardConfig, data_path: str = "btc_price_predictio
         labels = dynamic_triple_barrier(close, atr, horizon=cfg.horizon, k_tp=cfg.k_tp, k_sl=cfg.k_sl)
         data = pd.concat([feats, labels.rename("label")], axis=1).dropna()
         data = data[data["label"] != 0.0]  # remove neutral events
+        # Skip this differentiation order if not enough samples remain for CV
+        if len(data) < (cfg.n_splits + 1):
+            # Record NaNs to indicate insufficient data
+            results[str(d)] = {
+                "accuracy_mean": float("nan"),
+                "sharpe_mean": float("nan"),
+                "deflated_sharpe_mean": float("nan"),
+                "pbo": float("nan"),
+            }
+            continue
         X = data.drop(columns=["label"]).values
         y = np.where(data["label"].values > 0, 1, 0)  # binarise labels
         tscv = TimeSeriesSplit(n_splits=cfg.n_splits)
